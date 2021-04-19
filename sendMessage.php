@@ -4,7 +4,6 @@ $tel = test_input($_POST['tel']);
 $email = test_input($_POST['email']);
 $topic = test_input($_POST['topic']);
 $msg = test_input($_POST['msg']);
-$count = test_input($_POST['count']);
 $isValid = true;
 
 if (!isValidateEmail($email)) {
@@ -13,9 +12,8 @@ if (!isValidateEmail($email)) {
 }
 
 if ($isValid) {
-    $msg .= "Tel: " . $tel;
-    echo "Количество: " . $count . "<br>";
-    if (mail($email, $topic . "-" . $i, $msg, $name)) {
+    $msg .= "Tel: " . $tel . " Name: " . $name;
+    if (mail($email, $topic, $msg)) {
         echo "Сообщение отправлено!<br>";
     } else {
         echo "Ошибка<br>";

@@ -19,7 +19,6 @@
                 <label>Email: <input type="email" name="email" required></label><br>
                 <label> Topic: <input type="text" name="topic" required></label><br>
                 <label> Message: <input type="text" name="msg" required></label><br>
-                <label> Count: <input type="text" name="count" required></label><br>
 
                 <input type="submit">
             </form>
