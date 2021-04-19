@@ -1,20 +1,40 @@
 <?php
-$name = $_POST['name'];
-$tel = $_POST['tel'];
-$email = $_POST['email'];
-$topic = $_POST['topic'];
-$msg = $_POST['msg'];
-$subject = "Тестовая отправка спама от Евгена!";
-$count = $_POST['count'];
+$name = test_input($_POST['name']);
+$tel = test_input($_POST['tel']);
+$email = test_input($_POST['email']);
+$topic = test_input($_POST['topic']);
+$msg = test_input($_POST['msg']);
+$count = test_input($_POST['count']);
+$isValid = true;
 
-$headers  = "Content-type: text/html; charset=windows-1251 \r\n";
-$headers .= "From: Кирилл Привет!!! \r\n";
-$msg .= "/nTel: " . $tel;
-echo $count;
-for ($i = 0; $i < $count; ++$i) {
-    if (mail($email, $subject, $msg, $name, $headers)) {
-        echo $i . ") Сообщение отправлено!<br>";
+if (!isValidateEmail($email)) {
+    $isValid = false;
+    echo "Email is invalid!<br>";
+}
+
+if ($isValid) {
+    $msg .= "Tel: " . $tel;
+    echo "Количество: " . $count . "<br>";
+    if (mail($email, $topic . "-" . $i, $msg, $name)) {
+        echo "Сообщение отправлено!<br>";
     } else {
-        echo $i . ") Ошибка<br>";
+        echo "Ошибка<br>";
     }
+}
+
+
+function isValidateEmail($line)
+{
+    if (!preg_match("/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i", $line)) {
+        return false;
+    }
+    return true;
+}
+
+function test_input($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
