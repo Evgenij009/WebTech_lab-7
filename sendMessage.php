@@ -11,6 +11,11 @@ if (!isValidateEmail($email)) {
     echo "Email is invalid!<br>";
 }
 
+if (!isValidateTel($tel)) {
+    $isValid = false;
+    echo "Tel is invalid!<br>";
+}
+
 if ($isValid) {
     $msg .= "Tel: " . $tel . " Name: " . $name;
     if (mail($email, $topic, $msg)) {
@@ -24,6 +29,14 @@ if ($isValid) {
 function isValidateEmail($line)
 {
     if (!preg_match("/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i", $line)) {
+        return false;
+    }
+    return true;
+}
+
+function isValidateTel($line)
+{
+    if (!preg_match("/^[+]{1}([0-9-]+)/i", $line)) {
         return false;
     }
     return true;
